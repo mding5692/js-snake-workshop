@@ -24,6 +24,7 @@
 			var score = 0;
 			var snake;
 			var food;
+			var foodCoord = [100,400];
 
 			// Customize our gameCanvas's width and height
 			gameCanvas.setAttribute("height", height);
@@ -91,13 +92,15 @@
 
   			// Draws food
   			function drawFood(ctx) {
-  				var coord = generateRandCoord();
+  				if (collided()) {
+  					foodCoord = generateRandCoord();
+  				}
   				ctx.save();
     			ctx.fillStyle = '#333'; //apple green
     			ctx.beginPath();
     			var radius = blockSize / 2;
-    			var x = coord[0];
-    			var y = coord[1];
+    			var x = foodCoord[0];
+    			var y = foodCoord[1];
     			console.log(x);
     			console.log(y);
     			ctx.arc(x, y, radius, 0, Math.PI * 2, true);
@@ -110,6 +113,17 @@
   				scoreBoard.innerHTML = "Score : " + score;
   			}
 
+  			// Checks if collided with food
+  			function collided() {
+  				var j = 0;
+  				for (j = 0; j < posArray.length; j++) {
+  					if (posArray[j][0] === foodCoord[0] && posArray[j][1] === foodCoord[1]) {
+  						return true;
+  					}
+  				}
+  				return false;
+  			}
+ 
 			// Creates a function to listen for changes, and update the website
 			function gameLoop() {
 				ctx.clearRect(0,0,height,width);
@@ -123,6 +137,7 @@
 			// Starts our game when the website is loaded
 			document.addEventListener("DOMContentLoaded", function(event) { 
 				gameLoop();
+				drawFood(ctx);
 			});
 
 			// Detects when we press a key and updates posArray
