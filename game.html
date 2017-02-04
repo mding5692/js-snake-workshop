@@ -29,9 +29,6 @@
 			gameCanvas.setAttribute("height", height);
 			gameCanvas.setAttribute("width", width);
 
-			// Customize color
-			ctx.fillStyle = "#2ecc71";
-
 			// Snake starts at certain coordinates:
 			var posArray = [];
   			posArray.push([6, 4]);
@@ -76,7 +73,7 @@
   			// Calls drawSection and draws snake
   			function drawSnake(ctx) {
     			ctx.save();
-    			ctx.fillStyle = '#33a';
+    			ctx.fillStyle = "#2ecc71";
     			for(var i = 0; i < posArray.length; i++) {
       				drawSection(ctx, posArray[i]);
     			}
